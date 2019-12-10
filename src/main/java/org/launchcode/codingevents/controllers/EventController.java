@@ -38,4 +38,21 @@ public class EventController {
         return "redirect:";
     }
 
+    @GetMapping("delete")
+    public String renderDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Event");
+        model.addAttribute("events", EventData.getAll());
+        return "events/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventForm(@RequestParam int[] eventIds) {
+
+        for (int eventId : eventIds) {
+            EventData.remove(eventId);
+        }
+
+        return "redirect:";
+    }
+
 }
