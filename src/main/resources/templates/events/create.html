@@ -5,19 +5,19 @@
 
 <header th:replace="fragments :: header"></header>
 
-<div th:if="${errors}" th:text="${errors}"></div>
-
-<form method="post">
+<form method="post" th:object="${event}">
     <div class="form-group">
         <label>Name
-            <input type="text" name="name" class="form-control">
+            <input th:field="*{name}" class="form-control">
         </label>
+        <span th:errors="*{name}"></span>
     </div>
     <div>
         <label>
             Description
-            <input type="text" name="description"  class="form-control">
+            <input th:field="*{description}"  class="form-control">
         </label>
+        <span th:errors="*{description}"></span>
     </div>
     <input type="submit" value="Create" class="btn btn-primary">
 </form>

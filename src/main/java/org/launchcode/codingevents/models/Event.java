@@ -16,13 +16,15 @@ public class Event {
     @Size(max=256)
     private String description;
 
+    private String email;
+
     public Event(String name, String description) {
         this();
         this.name = name;
         this.description = description;
     }
 
-    private Event() {
+    public Event() {
         this.id = nextId;
         nextId++;
     }
