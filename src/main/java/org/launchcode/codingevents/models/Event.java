@@ -10,10 +10,10 @@ public class Event {
     private int id;
     private static int nextId = 1;
 
-    @Size(min=3)
+    @Size(min=3, message="Name must be at least 3 characters long")
     private String name;
 
-    @Size(max=256)
+    @Size(max=256, message="Description is too long. Please limit to 256 characters")
     private String description;
 
     private String email;

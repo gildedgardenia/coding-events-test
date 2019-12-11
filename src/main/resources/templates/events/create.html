@@ -10,14 +10,14 @@
         <label>Name
             <input th:field="*{name}" class="form-control">
         </label>
-        <span th:errors="*{name}"></span>
+        <span th:errors="*{name}" class="error"></span>
     </div>
     <div>
         <label>
             Description
             <input th:field="*{description}"  class="form-control">
         </label>
-        <span th:errors="*{description}"></span>
+        <span th:errors="*{description}" class="error"></span>
     </div>
     <input type="submit" value="Create" class="btn btn-primary">
 </form>
