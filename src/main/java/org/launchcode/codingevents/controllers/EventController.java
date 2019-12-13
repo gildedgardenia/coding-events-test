@@ -1,15 +1,10 @@
 package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.models.Event;
-import org.launchcode.codingevents.models.EventData;
+import org.launchcode.codingevents.data.EventData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Chris Bay
@@ -33,22 +28,24 @@ public class EventController {
 
     @PostMapping("create")
     public String processCreateEventForm(@ModelAttribute Event newEvent) {
-        EventData.create(newEvent);
+        EventData.add(newEvent);
         return "redirect:";
     }
 
-    @GetMapping("remove")
-    public String displayRemoveEventForm(Model model) {
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Events");
         model.addAttribute("events", EventData.getAll());
-        model.addAttribute("title", "Remove Event");
-        return "events/remove";
+        return "events/delete";
     }
 
-    @PostMapping("remove")
-    public String processRemoveEventForm(@RequestParam int[] eventIds) {
+    @PostMapping("delete")
+    public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
 
-        for (int eventId : eventIds) {
-            EventData.remove(eventId);
+        if (eventIds != null) {
+            for (int id : eventIds) {
+                EventData.remove(id);
+            }
         }
 
         return "redirect:";
@@ -58,7 +55,7 @@ public class EventController {
     public String displayEditForm(Model model, @PathVariable int eventId){
         Event eventToEdit = EventData.getById(eventId);
         model.addAttribute("event", eventToEdit);
-        String title = "Edit Event " + eventToEdit.getName() + " (id=" + eventToEdit.getEventId() + ")";
+        String title = "Edit Event " + eventToEdit.getName() + " (id=" + eventToEdit.getId() + ")";
         model.addAttribute("title", title );
         return "events/edit";
     }
