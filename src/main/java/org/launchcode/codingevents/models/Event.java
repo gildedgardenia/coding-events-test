@@ -1,18 +1,20 @@
 package org.launchcode.codingevents.models;
 
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
 /**
  * Created by Chris Bay
  */
+@Entity
 public class Event {
 
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
     @Size(min=3, message="Name must be at least 3 characters long")
     private String name;
@@ -33,10 +35,7 @@ public class Event {
         this.type = type;
     }
 
-    public Event() {
-        this.id = nextId;
-        nextId++;
-    }
+    public Event() {}
 
     public int getId() {
         return id;
