@@ -4,6 +4,8 @@ package org.launchcode.codingevents.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -22,6 +24,8 @@ public class Event {
     @Size(max=256, message="Description is too long. Please limit to 256 characters")
     private String description;
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
     private EventType type;
