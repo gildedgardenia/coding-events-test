@@ -4,9 +4,12 @@ package org.launchcode.codingevents.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Created by Chris Bay
@@ -28,15 +31,17 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    private EventType type;
+    @NotNull
+    @ManyToOne
+    private EventCategory category;
 
     public Event(String name, String description, String contactEmail,
-                 EventType type) {
+                 EventCategory category) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
-        this.type = type;
+        this.category = category;
     }
 
     public Event() {}
@@ -69,12 +74,24 @@ public class Event {
         this.contactEmail = contactEmail;
     }
 
-    public EventType getType() {
-        return type;
+    public EventCategory getCategory() {
+        return category;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setCategory(EventCategory category) {
+        this.category = category;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return id == event.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
