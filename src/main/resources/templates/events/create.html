@@ -28,11 +28,12 @@
     <div class="form-group">
         <label>
             Type
-            <select th:field="${event.type}" class="form-control">
-                <option th:each="type : ${types}"
-                        th:text="${type.name}"
-                        th:value="${type}"></option>
+            <select th:field="${event.category}" class="form-control">
+                <option th:each="category : ${categories}"
+                        th:text="${category.name}"
+                        th:value="${category.id}"></option>
             </select>
+            <p class="error" th:errors="${event.category}"></p>
         </label>
     </div>
     <input type="submit" value="Create" class="btn btn-primary">
